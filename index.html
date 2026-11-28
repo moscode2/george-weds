@@ -28,7 +28,7 @@
   h1,h2,h3{font-family:'Playfair Display',serif}
   .script{font-family:'Great Vibes',cursive;font-weight:400}
   a{color:inherit}
-  section{padding:90px 20px;position:relative}
+  section{padding:90px 20px;position:relative;scroll-margin-top:56px}
   .wrap{max-width:1050px;margin:0 auto}
   .title{text-align:center;margin-bottom:50px}
   .title .script{font-size:2.2rem;color:var(--magenta);display:block}
@@ -102,10 +102,9 @@
   .gallery{background:var(--ink)}
   .gallery .title h2{background:linear-gradient(135deg,var(--gold),#fff);-webkit-background-clip:text;background-clip:text}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-  .grid div{aspect-ratio:1;border-radius:18px;background-size:cover;background-position:center;transition:.35s;cursor:pointer}
-  .grid div:hover{transform:scale(1.04) rotate(-1deg)}
-  .g2{background-image:url('images/g2.jpg'),linear-gradient(135deg,#f4b400,#ff6b4a)}
-  .g3{background-image:url('images/g3.jpg'),linear-gradient(135deg,#0fa3a3,#6a2c91)}
+  .grid .g{aspect-ratio:1;border-radius:18px;overflow:hidden;transition:.35s;cursor:pointer}
+  .grid .g img{width:100%;height:100%;object-fit:cover;display:block}
+  .grid .g:hover{transform:scale(1.04) rotate(-1deg)}
   /* ============ RSVP ============ */
   .rsvp{background:linear-gradient(135deg,var(--purple),var(--magenta));color:#fff}
   .rsvp .title h2,.rsvp .title .script{color:#fff;background:none;-webkit-text-fill-color:#fff}
@@ -114,13 +113,22 @@
   textarea{min-height:100px;resize:vertical}
   .rsvp p.note{text-align:center;margin-bottom:24px}
 
+  #music{position:fixed;right:16px;bottom:16px;z-index:60;width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+         background:var(--grad);color:#fff;font-size:1.5rem;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+  #music.on{animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{transform:scale(1.12)}}
+  #yt{position:fixed;left:-9999px;bottom:0;width:200px;height:200px;opacity:0;pointer-events:none}
+
   footer{background:var(--ink);color:#fff;text-align:center;padding:50px 20px}
   footer .script{font-size:2.8rem;color:var(--gold)}
 
   @media(max-width:640px){
     .couple{grid-template-columns:1fr}
     section{padding:70px 16px}
-    nav a{padding:5px 9px;font-size:.75rem}
+    nav{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none}
+    nav::-webkit-scrollbar{display:none}
+    nav a{padding:5px 11px;font-size:.78rem;white-space:nowrap}
+    .grid{grid-template-columns:repeat(2,1fr);gap:10px}
   }
   /* fade-in on scroll */
   .reveal{opacity:0;transform:translateY(30px);transition:1s}
@@ -180,15 +188,16 @@
     <div class="title"><span class="script">Save the Date</span><h2>Wedding Details</h2><div class="line"></div></div>
     <div class="cards">
       <div class="card"><div class="ico">💒</div><h3>Ceremony</h3>
-        <p><b>31 December 2026</b><br>11:00 AM<br>Ugenya, Siaya<br><small>(Aboke - Uwai Catholic Parish</small></p></div>
+        <p><b>31 December 2026</b><br>11:00 AM<br>Ugenya, Siaya<br><small>(Aboke - Uwai Catholic Parish)</small></p></div>
       <div class="card"><div class="ico">🥂</div><h3>Reception</h3>
         <p><b>31 December 2026</b><br>2:00 PM onwards<br>Ugenya, Siaya<br><small>(Nyalenya)</small></p></div>
       <div class="card"><div class="ico">👗</div><h3>Dress Code</h3>
         <p>Bright &amp; colourful!<br>Think magenta, gold, teal and coral.<br>Come ready to dance 💃🕺</p></div>
     </div>
     <div class="map">
-      <iframe loading="lazy" title="Map of Siaya" src="https://www.google.com/maps?q=Siaya,Kenya&output=embed"></iframe>
+      <iframe loading="lazy" title="Map of St. Joseph Aboke Uwai Catholic Church" src="https://www.google.com/maps?q=St.Joseph+Aboke+Uwai+Catholic+Church&ll=0.2455287,34.166016&z=15&output=embed"></iframe>
     </div>
+    <p style="text-align:center;margin-top:18px"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/place/St.Joseph+Aboke+Uwai+Catholic/@0.2455287,34.166016,15z/data=!3m1!4b1!4m6!3m5!1s0x177feab25c9a7eb5:0xb69a567f7efb4db5!8m2!3d0.2455287!4d34.166016!16s%2Fg%2F1tjyq_55">📍 Open in Google Maps</a></p>
   </div>
 </section>
 
@@ -213,8 +222,13 @@
   <div class="wrap">
     <div class="title"><span class="script">Moments</span><h2>Our Gallery</h2><div class="line"></div></div>
     <div class="grid">
-      <div class="g1"></div><div class="g2"></div><div class="g3"></div><div class="g4"></div>
-      <div class="g5"></div><div class="g6"></div><div class="g7"></div><div class="g8"></div>
+      <div class="g"><img src="images/g2.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
+      <div class="g"><img src="images/g3.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
+      <div class="g"><img src="images/g4.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
+      <div class="g"><img src="images/g5.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
+      <div class="g"><img src="images/g6.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
+      <div class="g"><img src="images/g7.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
+      <div class="g"><img src="images/g8.jpg" alt="Emilly and George" loading="lazy" onerror="this.parentNode.remove();checkGallery()"></div>
     </div>
   </div>
 </section>
@@ -234,6 +248,9 @@
     </form>
   </div>
 </section>
+
+<button id="music" aria-label="Play music" title="Play music">🎵</button>
+<div id="yt"></div>
 
 <footer>
   <div class="script">Emilly &amp; George</div>
@@ -275,11 +292,46 @@
   const io = new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting)x.target.classList.add('show')}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+  /* Hide gallery if no photos exist */
+  function checkGallery(){
+    if(!document.querySelector('.grid .g')){
+      document.getElementById('gallery').style.display='none';
+      document.querySelector('nav a[href="#gallery"]').style.display='none';
+    }
+  }
+
+  /* Background music (YouTube, Willy Paul) */
+  const VIDEO_ID = 'LlZcj_G8OF4';
+  let player, ready=false, wantPlay=false, playing=false;
+  const mBtn = document.getElementById('music');
+  function setUI(on){ playing=on; mBtn.classList.toggle('on',on); mBtn.textContent = on ? '🔊' : '🎵'; }
+  const yt = document.createElement('script'); yt.src='https://www.youtube.com/iframe_api'; document.head.appendChild(yt);
+  window.onYouTubeIframeAPIReady = ()=>{
+    player = new YT.Player('yt',{
+      width:'200',height:'200',videoId:VIDEO_ID,
+      playerVars:{loop:1,playlist:VIDEO_ID,controls:0,playsinline:1,rel:0},
+      events:{
+        onReady:()=>{ ready=true; if(wantPlay) player.playVideo(); },
+        onStateChange:e=>{ if(e.data===1) setUI(true); else if(e.data===2) setUI(false); }
+      }
+    });
+  };
+  function toggleMusic(){
+    wantPlay = !playing;
+    if(!ready) return;
+    wantPlay ? player.playVideo() : player.pauseVideo();
+  }
+  mBtn.addEventListener('click',e=>{ e.stopPropagation(); started=true; toggleMusic(); });
+  /* Browsers block autoplay, so start on the guest's first tap */
+  let started=false;
+  const first=()=>{ if(started) return; started=true; wantPlay=true; if(ready) player.playVideo(); };
+  ['click','touchend','keydown'].forEach(ev=>document.addEventListener(ev,first,{once:true}));
+
   /* RSVP -> WhatsApp */
   document.getElementById('rsvpForm').addEventListener('submit',e=>{
     e.preventDefault();
     const g = id=>document.getElementById(id).value;
-    const text = `Hello! RSVP for George & Emmaculate's wedding%0A`+
+    const text = `Hello! RSVP for Emilly & George's wedding%0A`+
       `Name: ${encodeURIComponent(g('name'))}%0APhone: ${encodeURIComponent(g('phone'))}%0A`+
       `Response: ${encodeURIComponent(g('attend'))}%0AGuests: ${g('guests')}%0AMessage: ${encodeURIComponent(g('msg'))}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`,'_blank');
